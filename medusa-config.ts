@@ -4,10 +4,17 @@ import path from "path"
 
 loadEnv(process.env.NODE_ENV || "production", process.cwd())
 
-// Load the RDS SSL certificate
-const sslCert =
-  process.env.PG_SSL_CERT ||
-  fs.readFileSync(path.join(__dirname, "rds-ca-bundle.pem")).toString()
+// Handle both file-based and environment-based certs
+let sslCert
+
+if (process.env.PG_SSL_CERT) {
+  // Important: Environment variables collapse line breaks,
+  // so we need to restore them
+  sslCert = process.env.PG_SSL_CERT.replace(/\\n/g, "\n")
+} else {
+  // Fallback: read from file if running locally
+  sslCert = fs.readFileSync(path.join(__dirname, "rds-ca-bundle.pem")).toString()
+}
 
 export default defineConfig({
   projectConfig: {
