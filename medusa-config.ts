@@ -24,7 +24,5 @@ export default defineConfig({
       jwtSecret: process.env.JWT_SECRET || "supersecret",
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
-    // ✅ This is correct for Railway — it reads the dynamic port
-    port: parseInt(process.env.PORT || "9000", 10),
   },
 })
