@@ -1,28 +1,25 @@
 import { loadEnv, defineConfig } from "@medusajs/framework/utils"
 import fs from "fs"
-import path from "path"
 
-loadEnv(process.env.NODE_ENV || "production", process.cwd())
+loadEnv(process.env.NODE_ENV || "development", process.cwd())
 
-const sslCert =
-  process.env.PG_SSL_CERT?.replace(/\\n/g, "\n") ||
-  fs.readFileSync(path.join(__dirname, "rds-ca-bundle.pem"), "utf8")
+const sslOptions = process.env.PG_SSL_CERT
+  ? {
+      rejectUnauthorized: true,
+      ca: process.env.PG_SSL_CERT.replace(/\\n/g, "\n"),
+    }
+  : false
 
 export default defineConfig({
   projectConfig: {
-    databaseUrl: process.env.DATABASE_URL!,
-    databaseDriverOptions: {
-      ssl: {
-        rejectUnauthorized: true,
-        ca: sslCert,
-      },
+    databaseUrl: process.env.DATABASE_URL,
+    databaseExtra: {
+      ssl: sslOptions,
     },
     http: {
-      storeCors: process.env.STORE_CORS || "",
-      adminCors: process.env.ADMIN_CORS || "",
-      authCors: process.env.AUTH_CORS || "",
-      jwtSecret: process.env.JWT_SECRET || "supersecret",
-      cookieSecret: process.env.COOKIE_SECRET || "supersecret",
+      storeCors: process.env.STORE_CORS || "*",
+      adminCors: process.env.ADMIN_CORS || "*",
+      port: process.env.PORT || 9000,
     },
   },
 })
