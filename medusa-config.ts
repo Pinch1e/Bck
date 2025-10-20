@@ -1,5 +1,4 @@
 import { loadEnv, defineConfig } from "@medusajs/framework/utils"
-import fs from "fs"
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd())
 
@@ -16,10 +15,14 @@ export default defineConfig({
     databaseExtra: {
       ssl: sslOptions,
     },
-    http: {
-      storeCors: process.env.STORE_CORS || "*",
-      adminCors: process.env.ADMIN_CORS || "*",
-      port: process.env.PORT || 9000,
-    },
+    redisUrl: process.env.REDIS_URL || undefined,
+  },
+  http: {
+    storeCors: process.env.STORE_CORS || "*",
+    adminCors: process.env.ADMIN_CORS || "*",
+  },
+  workerMode: false,
+  admin: {
+    port: process.env.PORT || 9000, // <– move port here
   },
 })
