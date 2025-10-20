@@ -1,14 +1,14 @@
-import { loadEnv, defineConfig } from "@medusajs/framework/utils";
+import { loadEnv, defineConfig } from "@medusajs/framework/utils"
 
-loadEnv(process.env.NODE_ENV || "production", process.cwd());
-
-const sslCert = process.env.PG_SSL_CERT?.replace(/\\n/g, "\n");
+loadEnv(process.env.NODE_ENV || "production", process.cwd())
 
 export default defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL!,
     databaseDriverOptions: {
-      ssl: sslCert ? { rejectUnauthorized: true, ca: sslCert } : false,
+      ssl: process.env.PG_SSL_CERT
+        ? { rejectUnauthorized: true, ca: process.env.PG_SSL_CERT.replace(/\\n/g, "\n") }
+        : false,
     },
     redisUrl: process.env.REDIS_URL,
     http: {
@@ -19,4 +19,4 @@ export default defineConfig({
       cookieSecret: process.env.COOKIE_SECRET!,
     },
   },
-});
+})
