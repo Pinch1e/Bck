@@ -1,20 +1,17 @@
-import { loadEnv, defineConfig } from "@medusajs/framework/utils"
+import { loadEnv, defineConfig } from "@medusajs/framework/utils";
 
-loadEnv(process.env.NODE_ENV || "production", process.cwd())
+loadEnv(process.env.NODE_ENV || "production", process.cwd());
 
-// Make sure the cert is properly parsed
-const sslCert = process.env.PG_SSL_CERT?.replace(/\\n/g, "\n").trim()
+// Use the Railway SSL cert environment variable
+const sslCert = process.env.PG_SSL_CERT?.replace(/\\n/g, "\n");
 
 export default defineConfig({
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL!,
     databaseDriverOptions: {
       ssl: sslCert
-        ? {
-            rejectUnauthorized: true, // must be true for RDS
-            ca: sslCert,
-          }
-        : undefined, // fallback to no SSL if not provided
+        ? { rejectUnauthorized: true, ca: sslCert } // ✅ use SSL cert from env
+        : false, // fallback if env var is missing
     },
     http: {
       storeCors: process.env.STORE_CORS || "",
@@ -24,4 +21,4 @@ export default defineConfig({
       cookieSecret: process.env.COOKIE_SECRET || "supersecret",
     },
   },
-})
+});
