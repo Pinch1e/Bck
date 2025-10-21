@@ -23,7 +23,6 @@ build
 !.yarn/sdks
 !.yarn/versions
 
-.medusa
 
 # Node modules
 node_modules/
@@ -52,7 +51,6 @@ Thumbs.db
 # Build outputs
 build/
 .next/
-.medusa/
 
 # PostgreSQL dump/backups (optional)
 *.sql
