@@ -19,4 +19,16 @@ export default defineConfig({
       cookieSecret: process.env.COOKIE_SECRET!,
     },
   },
+
+  modules: [
+    {
+      resolve: "@medusajs/file-s3",
+      options: {
+        access_key_id: process.env.S3_ACCESS_KEY_ID,
+        secret_access_key: process.env.S3_SECRET_ACCESS_KEY,
+        region: process.env.S3_REGION || "eu-central-1",
+        bucket: process.env.S3_BUCKET_NAME,
+      },
+    },
+  ],
 })
