@@ -24,8 +24,8 @@
   "dependencies": {
     "@medusajs/admin-sdk": "2.10.3",
     "@medusajs/cli": "^2.11.3",
-    "@medusajs/file-s3": "^2.10.3",
-    "@medusajs/framework": "2.10.3",
+    "@medusajs/file-s3": "^2.11.3",
+    "@medusajs/framework": "^2.11.3",
     "@medusajs/medusa": "^2.11.3",
     "@mikro-orm/core": "6.4.3",
     "@mikro-orm/knex": "6.4.3",
@@ -35,7 +35,7 @@
     "pg": "^8.13.0"
   },
   "devDependencies": {
-    "@medusajs/test-utils": "2.10.3",
+    "@medusajs/test-utils": "^2.11.3",
     "@mikro-orm/cli": "6.4.3",
     "@swc/core": "1.5.7",
     "@swc/jest": "^0.2.36",
@@ -50,7 +50,7 @@
     "react-dom": "^18.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
-    "vite": "^7.2.2",
+    "vite": "^5.4.21",
     "yalc": "^1.0.0-pre.53"
   },
   "engines": {
