@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "build": "npx medusa build",
+    "build:all": "npm run build && cd src/admin && npm install && npm run build && cd ../.. && mkdir -p build/admin && cp -r src/admin/dist/* build/admin/",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
