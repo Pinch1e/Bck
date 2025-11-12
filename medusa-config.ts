@@ -63,4 +63,8 @@ export default defineConfig({
       },
     },
   ],
+admin: {
+  path: "/admin",
+  //serve: true, // optional, tells Medusa to serve the files
+},
 })
