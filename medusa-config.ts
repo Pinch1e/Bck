@@ -65,6 +65,6 @@ export default defineConfig({
   ],
 admin: {
   path: "/build/admin",
-  //serve: true,
+  outDir: path.join(process.cwd(), "build", "admin"),
 },
 })
